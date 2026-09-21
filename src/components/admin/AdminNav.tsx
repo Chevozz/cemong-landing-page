@@ -16,7 +16,7 @@ export default function AdminNav() {
   }
 
   const navItems = [
-    { label: "Ikhtisar", href: "/admin", icon: LayoutDashboard, exact: true },
+    { label: "Dashboard", href: "/admin", icon: LayoutDashboard, exact: true },
     { label: "Produk", href: "/admin/produk", icon: Package, exact: false },
     { label: "Pengaturan", href: "/admin/pengaturan", icon: Settings, exact: true },
   ];
