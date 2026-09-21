@@ -1,30 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { formatRupiah } from "@/lib/formatters/currency";
 import { buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
-import type { CartItem } from "@/types/product";
-
-const CART_KEY = "cemong-cart";
-
-function loadCart(): CartItem[] {
-  try {
-    const raw = localStorage.getItem(CART_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    return parsed.filter(
-      (item: CartItem) =>
-        item.productId && item.name && typeof item.price === "number" && typeof item.quantity === "number" && item.quantity > 0
-    );
-  } catch {
-    return [];
-  }
-}
+import { useCart } from "@/hooks/use-cart";
 
 interface FormErrors {
   name?: string;
@@ -32,19 +15,11 @@ interface FormErrors {
 }
 
 export default function CheckoutPage() {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [mounted, setMounted] = useState(false);
+  const { items, total, clearCart } = useCart();
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [note, setNote] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
-
-  useEffect(() => {
-    setItems(loadCart());
-    setMounted(true);
-  }, []);
-
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   function validate(): boolean {
     const newErrors: FormErrors = {};
@@ -74,24 +49,9 @@ export default function CheckoutPage() {
     const url = buildWhatsAppUrl(message);
 
     // Clear cart after sending
-    localStorage.removeItem(CART_KEY);
+    clearCart();
 
     window.open(url, "_blank");
-  }
-
-  if (!mounted) {
-    return (
-      <>
-        <Navbar />
-        <main className="flex-1">
-          <div className="mx-auto max-w-300 px-4 py-12 md:px-8">
-            <h1 className="font-sans text-2xl font-bold text-foreground mb-8">Checkout</h1>
-            <div className="animate-pulse h-64 bg-border/40 rounded-lg" />
-          </div>
-        </main>
-        <Footer />
-      </>
-    );
   }
 
   if (items.length === 0) {

@@ -14,15 +14,29 @@ export default function AdminProductsPage() {
   const [search, setSearch] = useState("");
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  async function loadData() {
-    setLoading(true);
-    const data = await getAllProductsAdmin();
-    setProducts(data);
-    setLoading(false);
-  }
-
   useEffect(() => {
-    loadData();
+    let cancelled = false;
+
+    async function fetchData() {
+      setLoading(true);
+      try {
+        const data = await getAllProductsAdmin();
+        if (!cancelled) {
+          setProducts(data);
+          setLoading(false);
+        }
+      } catch {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    fetchData();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   async function handleDelete(id: string, name: string) {

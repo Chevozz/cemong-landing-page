@@ -1,39 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
+import { cartStore } from "@/lib/cart/store";
 
 export default function CartButton() {
-  const [count, setCount] = useState(0);
+  const items = useSyncExternalStore(
+    cartStore.subscribe,
+    cartStore.getSnapshot,
+    cartStore.getServerSnapshot
+  );
 
-  useEffect(() => {
-    function readCart() {
-      try {
-        const raw = localStorage.getItem("cemong-cart");
-        if (!raw) {
-          setCount(0);
-          return;
-        }
-        const items = JSON.parse(raw);
-        if (Array.isArray(items)) {
-          const total = items.reduce((acc: number, item: { quantity?: number }) => acc + (item.quantity || 0), 0);
-          setCount(total);
-        }
-      } catch {
-        setCount(0);
-      }
-    }
-
-    readCart();
-    window.addEventListener("storage", readCart);
-    window.addEventListener("cemong-cart-updated", readCart);
-
-    return () => {
-      window.removeEventListener("storage", readCart);
-      window.removeEventListener("cemong-cart-updated", readCart);
-    };
-  }, []);
+  const count = items.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <Link

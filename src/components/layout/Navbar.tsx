@@ -21,12 +21,12 @@ export default function Navbar() {
             <Link href="/produk" className="hover:text-primary transition-colors">
               Produk
             </Link>
-            <a href="/#tentang" className="hover:text-primary transition-colors">
+            <Link href="/#tentang" className="hover:text-primary transition-colors">
               Tentang
-            </a>
-            <a href="/#cara-pesan" className="hover:text-primary transition-colors">
+            </Link>
+            <Link href="/#cara-pesan" className="hover:text-primary transition-colors">
               Cara Pesan
-            </a>
+            </Link>
           </div>
 
           <CartButton />

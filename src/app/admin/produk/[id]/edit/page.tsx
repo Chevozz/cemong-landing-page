@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, use } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -31,7 +30,6 @@ interface Props {
 
 export default function EditProductPage({ params }: Props) {
   const { id } = use(params);
-  const router = useRouter();
 
   const [product, setProduct] = useState<ProductWithRelations | null>(null);
   const [categories, setCategories] = useState<ProductCategory[]>([]);
@@ -55,35 +53,49 @@ export default function EditProductPage({ params }: Props) {
   // Images
   const [images, setImages] = useState<ProductImage[]>([]);
 
-  async function loadData() {
-    setLoading(true);
-    const [p, cats] = await Promise.all([
-      getProductByIdAdmin(id),
-      getCategoriesAdmin(),
-    ]);
+  useEffect(() => {
+    let cancelled = false;
 
-    if (!p) {
-      setLoading(false);
-      return;
+    async function fetchData() {
+      setLoading(true);
+      try {
+        const [p, cats] = await Promise.all([
+          getProductByIdAdmin(id),
+          getCategoriesAdmin(),
+        ]);
+
+        if (!cancelled) {
+          if (!p) {
+            setLoading(false);
+            return;
+          }
+
+          setProduct(p);
+          setCategories(cats);
+
+          setName(p.name);
+          setSlug(p.slug);
+          setCategoryId(p.category_id);
+          setPrice(p.price);
+          setWeightGrams(p.weight_grams);
+          setDescription(p.description || "");
+          setIsAvailable(p.is_available);
+          setImages(p.images || []);
+
+          setLoading(false);
+        }
+      } catch {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
     }
 
-    setProduct(p);
-    setCategories(cats);
+    fetchData();
 
-    setName(p.name);
-    setSlug(p.slug);
-    setCategoryId(p.category_id);
-    setPrice(p.price);
-    setWeightGrams(p.weight_grams);
-    setDescription(p.description || "");
-    setIsAvailable(p.is_available);
-    setImages(p.images || []);
-
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    loadData();
+    return () => {
+      cancelled = true;
+    };
   }, [id]);
 
   async function handleSaveProduct(e: React.FormEvent) {

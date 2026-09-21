@@ -1,88 +1,21 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { formatRupiah } from "@/lib/formatters/currency";
-import type { CartItem } from "@/types/product";
-
-const CART_KEY = "cemong-cart";
-
-function loadCart(): CartItem[] {
-  try {
-    const raw = localStorage.getItem(CART_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    // Basic validation
-    return parsed.filter(
-      (item: CartItem) =>
-        item.productId &&
-        item.name &&
-        typeof item.price === "number" &&
-        typeof item.quantity === "number" &&
-        item.quantity > 0
-    );
-  } catch {
-    return [];
-  }
-}
-
-function saveCart(items: CartItem[]) {
-  localStorage.setItem(CART_KEY, JSON.stringify(items));
-}
+import { useCart } from "@/hooks/use-cart";
 
 export default function KeranjangPage() {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [mounted, setMounted] = useState(false);
+  const { items, total, updateQuantity, removeFromCart } = useCart();
 
-  useEffect(() => {
-    setItems(loadCart());
-    setMounted(true);
-  }, []);
-
-  const persist = useCallback((updated: CartItem[]) => {
-    setItems(updated);
-    saveCart(updated);
-  }, []);
-
-  function updateQuantity(productId: string, delta: number) {
-    const updated = items
-      .map((item) => {
-        if (item.productId !== productId) return item;
-        const newQty = item.quantity + delta;
-        return newQty <= 0 ? null : { ...item, quantity: newQty };
-      })
-      .filter(Boolean) as CartItem[];
-    persist(updated);
-  }
-
-  function removeItem(productId: string) {
-    persist(items.filter((item) => item.productId !== productId));
-  }
-
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-  if (!mounted) {
-    return (
-      <>
-        <Navbar />
-        <main className="flex-1">
-          <div className="mx-auto max-w-300 px-4 py-12 md:px-8">
-            <h1 className="font-sans text-2xl font-bold text-foreground mb-8">Keranjang</h1>
-            <div className="animate-pulse space-y-4">
-              {[1, 2].map((i) => (
-                <div key={i} className="h-24 bg-border/40 rounded-lg" />
-              ))}
-            </div>
-          </div>
-        </main>
-        <Footer />
-      </>
-    );
+  function handleQuantityChange(productId: string, delta: number) {
+    const item = items.find((i) => i.productId === productId);
+    if (item) {
+      updateQuantity(productId, item.quantity + delta);
+    }
   }
 
   return (
@@ -140,7 +73,7 @@ export default function KeranjangPage() {
                         <div className="flex items-center gap-1">
                           <button
                             type="button"
-                            onClick={() => updateQuantity(item.productId, -1)}
+                            onClick={() => handleQuantityChange(item.productId, -1)}
                             className="flex h-8 w-8 items-center justify-center rounded border border-border text-foreground hover:bg-background transition-colors"
                             aria-label="Kurangi jumlah"
                           >
@@ -149,7 +82,7 @@ export default function KeranjangPage() {
                           <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
                           <button
                             type="button"
-                            onClick={() => updateQuantity(item.productId, 1)}
+                            onClick={() => handleQuantityChange(item.productId, 1)}
                             className="flex h-8 w-8 items-center justify-center rounded border border-border text-foreground hover:bg-background transition-colors"
                             aria-label="Tambah jumlah"
                           >
@@ -164,7 +97,7 @@ export default function KeranjangPage() {
                           </p>
                           <button
                             type="button"
-                            onClick={() => removeItem(item.productId)}
+                            onClick={() => removeFromCart(item.productId)}
                             className="flex h-8 w-8 items-center justify-center rounded text-muted hover:text-error transition-colors"
                             aria-label={`Hapus ${item.name}`}
                           >
