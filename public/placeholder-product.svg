@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="450" viewBox="0 0 600 450">
+  <rect width="600" height="450" fill="#E7E2DD"/>
+  <rect x="24" y="24" width="552" height="402" rx="8" fill="#FAFAFA" stroke="#D4A373" stroke-width="2" stroke-dasharray="10 6"/>
+  <g fill="#737373">
+    <circle cx="240" cy="180" r="46"/>
+    <path d="M180 300c0-46 40-84 90-84s90 38 90 84-40 42-90 42-90 4-90-42z" fill="#D4A373"/>
+  </g>
+  <text x="300" y="380" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#737373" text-anchor="middle">Foto produk belum tersedia</text>
+</svg>

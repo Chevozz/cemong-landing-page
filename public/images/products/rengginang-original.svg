@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <radialGradient id="cardBg3" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#FCFAF5"/>
+      <stop offset="60%" stop-color="#F4EEE2"/>
+      <stop offset="100%" stop-color="#E8DCBF"/>
+    </radialGradient>
+    <radialGradient id="rengShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(45,35,25,0.3)"/>
+      <stop offset="65%" stop-color="rgba(45,35,25,0.08)"/>
+      <stop offset="100%" stop-color="rgba(45,35,25,0)"/>
+    </radialGradient>
+    <linearGradient id="rengginangGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF3DC"/>
+      <stop offset="30%" stop-color="#F2D59D"/>
+      <stop offset="70%" stop-color="#D9A95B"/>
+      <stop offset="100%" stop-color="#B0782E"/>
+    </linearGradient>
+    <linearGradient id="rengginangBase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B88238"/>
+      <stop offset="100%" stop-color="#7A4D1A"/>
+    </linearGradient>
+    <filter id="shadow3" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#2D1A0E" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="450" fill="url(#cardBg3)"/>
+
+  <!-- Plate Shadow -->
+  <ellipse cx="300" cy="275" rx="195" ry="120" fill="url(#rengShadow)"/>
+
+  <!-- Plate -->
+  <g filter="url(#shadow3)">
+    <ellipse cx="300" cy="250" rx="180" ry="110" fill="#E8DFD3" stroke="#D1C3B2" stroke-width="3"/>
+    <ellipse cx="300" cy="250" rx="160" ry="98" fill="#FAF6F0"/>
+    <ellipse cx="300" cy="250" rx="142" ry="86" fill="#F4EDE1" stroke="#E2D6C5" stroke-width="1.5"/>
+  </g>
+
+  <!-- Rengginang Stack -->
+  <g filter="url(#shadow3)">
+    <!-- Cake 1 (Bottom Left, partially under) -->
+    <g transform="translate(195, 205) rotate(-15)">
+      <ellipse cx="65" cy="55" rx="76" ry="60" fill="url(#rengginangBase)"/>
+      <ellipse cx="65" cy="55" rx="72" ry="56" fill="url(#rengginangGold)"/>
+      <!-- Puffed rice grains -->
+      <g fill="#FFF5E5" stroke="#BA853C" stroke-width="1.2">
+        <ellipse cx="35" cy="35" rx="9" ry="6"/>
+        <ellipse cx="55" cy="30" rx="9" ry="6" transform="rotate(15 55 30)"/>
+        <ellipse cx="78" cy="30" rx="9" ry="6" transform="rotate(-15 78 30)"/>
+        <ellipse cx="95" cy="40" rx="8" ry="6" transform="rotate(25 95 40)"/>
+        <ellipse cx="42" cy="55" rx="9" ry="6" transform="rotate(-20 42 55)"/>
+        <ellipse cx="65" cy="52" rx="10" ry="7"/>
+        <ellipse cx="88" cy="52" rx="9" ry="6" transform="rotate(15 88 52)"/>
+        <ellipse cx="45" cy="72" rx="9" ry="6" transform="rotate(30 45 72)"/>
+        <ellipse cx="68" cy="75" rx="10" ry="6" transform="rotate(-10 68 75)"/>
+        <ellipse cx="90" cy="72" rx="8" ry="6" transform="rotate(20 90 72)"/>
+      </g>
+    </g>
+
+    <!-- Cake 2 (Main Foreground Crunchy Round) -->
+    <g transform="translate(260, 160) rotate(8)">
+      <ellipse cx="80" cy="70" rx="90" ry="72" fill="url(#rengginangBase)"/>
+      <ellipse cx="80" cy="70" rx="86" ry="68" fill="url(#rengginangGold)" stroke="#A06A26" stroke-width="2.5"/>
+      <!-- Puffed rice grains on top cake -->
+      <g fill="#FFF8EE" stroke="#A97530" stroke-width="1.3">
+        <!-- Center cluster -->
+        <ellipse cx="80" cy="70" rx="12" ry="8" transform="rotate(12 80 70)"/>
+        <ellipse cx="62" cy="65" rx="11" ry="7" transform="rotate(-25 62 65)"/>
+        <ellipse cx="98" cy="68" rx="11" ry="7" transform="rotate(30 98 68)"/>
+        <ellipse cx="78" cy="52" rx="11" ry="7" transform="rotate(-5 78 52)"/>
+        <ellipse cx="82" cy="88" rx="12" ry="7" transform="rotate(18 82 88)"/>
+
+        <!-- Middle ring -->
+        <ellipse cx="45" cy="52" rx="10" ry="6" transform="rotate(40 45 52)"/>
+        <ellipse cx="58" cy="40" rx="11" ry="7" transform="rotate(-15 58 40)"/>
+        <ellipse cx="102" cy="50" rx="10" ry="7" transform="rotate(-30 102 50)"/>
+        <ellipse cx="120" cy="60" rx="9" ry="6" transform="rotate(22 120 60)"/>
+        <ellipse cx="48" cy="80" rx="10" ry="7" transform="rotate(-35 48 80)"/>
+        <ellipse cx="65" cy="98" rx="11" ry="7" transform="rotate(15 65 98)"/>
+        <ellipse cx="105" cy="88" rx="11" ry="7" transform="rotate(-18 105 88)"/>
+        <ellipse cx="125" cy="80" rx="9" ry="6" transform="rotate(40 125 80)"/>
+
+        <!-- Outer bumps showing crispy irregular edge -->
+        <ellipse cx="25" cy="62" rx="9" ry="6" transform="rotate(25 25 62)"/>
+        <ellipse cx="35" cy="42" rx="9" ry="6" transform="rotate(-20 35 42)"/>
+        <ellipse cx="82" cy="28" rx="10" ry="6" transform="rotate(5 82 28)"/>
+        <ellipse cx="130" cy="52" rx="8" ry="6" transform="rotate(45 130 52)"/>
+        <ellipse cx="138" cy="72" rx="9" ry="6"/>
+        <ellipse cx="128" cy="95" rx="9" ry="6" transform="rotate(-25 128 95)"/>
+        <ellipse cx="98" cy="110" rx="10" ry="6" transform="rotate(30 98 110)"/>
+        <ellipse cx="45" cy="105" rx="9" ry="6" transform="rotate(-15 45 105)"/>
+        <ellipse cx="28" cy="85" rx="9" ry="6" transform="rotate(35 28 85)"/>
+      </g>
+      <!-- Deep golden crisp spots -->
+      <g fill="#87531B" opacity="0.65">
+        <circle cx="52" cy="55" r="2.5"/>
+        <circle cx="92" cy="60" r="2.2"/>
+        <circle cx="72" cy="80" r="2.2"/>
+        <circle cx="112" cy="75" r="2"/>
+        <circle cx="52" cy="75" r="2"/>
+      </g>
+    </g>
+
+    <!-- Scattered crispy rice crumbs -->
+    <ellipse cx="225" cy="275" rx="6" ry="4" fill="#FFF2DC" stroke="#B0782E" stroke-width="1" transform="rotate(25 225 275)"/>
+    <ellipse cx="410" cy="280" rx="5" ry="3.5" fill="#FFF2DC" stroke="#B0782E" stroke-width="1" transform="rotate(-30 410 280)"/>
+  </g>
+
+  <!-- Flavor Badge -->
+  <g transform="translate(28, 28)">
+    <rect x="0" y="0" width="130" height="32" rx="6" fill="#D4A373"/>
+    <text x="65" y="20" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#2D2D2D" text-anchor="middle">
+      KETAN GURIH
+    </text>
+  </g>
+</svg>

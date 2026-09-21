@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <radialGradient id="cardBg1" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#FCFAF7"/>
+      <stop offset="60%" stop-color="#F4EFE6"/>
+      <stop offset="100%" stop-color="#E7DEC8"/>
+    </radialGradient>
+    <radialGradient id="bowlShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(45,35,25,0.28)"/>
+      <stop offset="65%" stop-color="rgba(45,35,25,0.08)"/>
+      <stop offset="100%" stop-color="rgba(45,35,25,0)"/>
+    </radialGradient>
+    <linearGradient id="taroChip1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF5E2"/>
+      <stop offset="45%" stop-color="#F6E1BC"/>
+      <stop offset="80%" stop-color="#E6C48B"/>
+      <stop offset="100%" stop-color="#CCA263"/>
+    </linearGradient>
+    <linearGradient id="taroSkin1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7B4E8C"/>
+      <stop offset="60%" stop-color="#5A326D"/>
+      <stop offset="100%" stop-color="#3B1C4B"/>
+    </linearGradient>
+    <filter id="shadow1" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#2D1A0E" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="450" fill="url(#cardBg1)"/>
+
+  <!-- Plate Shadow -->
+  <ellipse cx="300" cy="275" rx="195" ry="120" fill="url(#bowlShadow)"/>
+
+  <!-- Earthenware Ceramic Plate / Piring Keramik Hangat -->
+  <g filter="url(#shadow1)">
+    <ellipse cx="300" cy="250" rx="180" ry="110" fill="#E8DFD3" stroke="#D1C3B2" stroke-width="3"/>
+    <ellipse cx="300" cy="250" rx="160" ry="98" fill="#FAF6F0"/>
+    <ellipse cx="300" cy="250" rx="142" ry="86" fill="#F4EDE1" stroke="#E2D6C5" stroke-width="1.5"/>
+  </g>
+
+  <!-- Heap of Keripik Talas Gurih -->
+  <g filter="url(#shadow1)">
+    <!-- Bottom layer chips -->
+    <g transform="translate(190, 210) rotate(-22)">
+      <path d="M 0 35 C 10 8, 55 -6, 90 12 C 120 28, 105 75, 80 85 C 45 98, -10 65, 0 35 Z" fill="url(#taroChip1)" stroke="url(#taroSkin1)" stroke-width="3"/>
+      <path d="M 22 28 Q 55 38 85 30 M 30 55 Q 65 48 85 62" stroke="#89569B" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.75"/>
+    </g>
+
+    <g transform="translate(310, 220) rotate(18)">
+      <path d="M 5 32 C 15 6, 65 -10, 100 10 C 125 28, 115 75, 85 90 C 50 105, -5 68, 5 32 Z" fill="url(#taroChip1)" stroke="url(#taroSkin1)" stroke-width="3.2"/>
+      <path d="M 25 25 Q 60 38 95 30 M 35 60 Q 70 52 92 68" stroke="#7A428E" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.8"/>
+    </g>
+
+    <!-- Middle layer chips -->
+    <g transform="translate(230, 175) rotate(15)">
+      <path d="M 0 38 C 10 10, 60 -8, 98 12 C 125 32, 115 78, 85 90 C 48 102, -8 70, 0 38 Z" fill="#FFF2DC" stroke="url(#taroSkin1)" stroke-width="3.5"/>
+      <path d="M 20 32 Q 58 45 92 36 M 30 60 Q 68 56 88 72" stroke="#6F3982" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85"/>
+      <!-- Salt / savory speckles -->
+      <circle cx="45" cy="38" r="1.5" fill="#FFFFFF"/>
+      <circle cx="75" cy="55" r="1.5" fill="#FFFFFF"/>
+    </g>
+
+    <g transform="translate(285, 160) rotate(-12)">
+      <path d="M 0 42 C 12 8, 70 -12, 108 14 C 132 34, 122 82, 92 95 C 50 108, -12 78, 0 42 Z" fill="url(#taroChip1)" stroke="url(#taroSkin1)" stroke-width="3.8"/>
+      <path d="M 20 35 Q 65 48 102 38 M 32 22 Q 75 32 100 62 M 30 68 Q 68 62 95 80" stroke="#6F3982" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.85"/>
+      <!-- Salt specks -->
+      <circle cx="55" cy="35" r="1.8" fill="#FFFFFF"/>
+      <circle cx="85" cy="48" r="1.5" fill="#FFFFFF"/>
+      <circle cx="70" cy="65" r="1.5" fill="#FFFFFF"/>
+    </g>
+
+    <!-- Foreground hero chip -->
+    <g transform="translate(240, 215) rotate(-5)">
+      <path d="M 5 35 C 18 10, 68 0, 98 22 C 120 40, 108 80, 82 88 C 48 98, -6 65, 5 35 Z" fill="#FFF4E0" stroke="url(#taroSkin1)" stroke-width="3.2"/>
+      <path d="M 25 32 Q 60 45 90 38 M 35 58 Q 68 55 85 72" stroke="#7E4793" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.8"/>
+    </g>
+
+    <!-- Scattered small chips -->
+    <g transform="translate(180, 275) rotate(35)">
+      <ellipse cx="15" cy="10" rx="16" ry="9" fill="#E8C488" stroke="#6F3982" stroke-width="1.8"/>
+    </g>
+    <g transform="translate(380, 265) rotate(-20)">
+      <ellipse cx="14" cy="8" rx="15" ry="8" fill="#E8C488" stroke="#6F3982" stroke-width="1.8"/>
+    </g>
+  </g>
+
+  <!-- Flavor Badge -->
+  <g transform="translate(28, 28)">
+    <rect x="0" y="0" width="130" height="32" rx="6" fill="#6A4C93"/>
+    <text x="65" y="20" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">
+      GURIH ASIN
+    </text>
+  </g>
+</svg>
