@@ -12,6 +12,7 @@ import {
   ArrowRightSquare,
   AlertCircle,
   CheckCircle2,
+  Plus,
 } from "lucide-react";
 import {
   getProductByIdAdmin,
@@ -22,6 +23,8 @@ import {
   deleteProductImage,
   reorderProductImages,
 } from "@/lib/supabase/admin-queries";
+import { mapAdminError } from "@/lib/utils/error-messages";
+import AddCategoryModal from "@/components/admin/AddCategoryModal";
 import type { ProductWithRelations, ProductCategory, ProductImage } from "@/types/database";
 
 interface Props {
@@ -52,6 +55,14 @@ export default function EditProductPage({ params }: Props) {
 
   // Images
   const [images, setImages] = useState<ProductImage[]>([]);
+
+  // Category Modal State
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+
+  function handleCategoryCreated(category: ProductCategory) {
+    setCategories((prev) => [...prev, category]);
+    setCategoryId(category.id);
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -141,9 +152,10 @@ export default function EditProductPage({ params }: Props) {
     setSaving(false);
 
     if (error) {
+      const mapped = mapAdminError(error, "product");
       setStatusMessage({
         type: "error",
-        text: `Gagal memperbarui produk: ${error}`,
+        text: `${mapped.title}. ${mapped.message}`,
       });
       return;
     }
@@ -164,7 +176,8 @@ export default function EditProductPage({ params }: Props) {
     setUploading(false);
 
     if (error || !data) {
-      alert(`Gagal mengunggah foto: ${error}`);
+      const mapped = mapAdminError(error, "product-image");
+      alert(`${mapped.title}\n\n${mapped.message}`);
       return;
     }
 
@@ -176,7 +189,8 @@ export default function EditProductPage({ params }: Props) {
   async function handleSetPrimary(imageId: string) {
     const { error } = await setPrimaryImage(id, imageId);
     if (error) {
-      alert(`Gagal menetapkan foto utama: ${error}`);
+      const mapped = mapAdminError(error, "product-image");
+      alert(`${mapped.title}\n\n${mapped.message}`);
       return;
     }
 
@@ -194,7 +208,8 @@ export default function EditProductPage({ params }: Props) {
 
     const { error } = await deleteProductImage(image.id, image.image_url);
     if (error) {
-      alert(`Gagal menghapus foto: ${error}`);
+      const mapped = mapAdminError(error, "product-image");
+      alert(`${mapped.title}\n\n${mapped.message}`);
       return;
     }
 
@@ -345,19 +360,30 @@ export default function EditProductPage({ params }: Props) {
             >
               Kategori <span className="text-error">*</span>
             </label>
-            <select
-              id="category"
-              value={categoryId}
-              onChange={(e) => setCategoryId(e.target.value)}
-              required
-              className="w-full rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors"
-            >
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
+            <div className="flex items-center gap-2">
+              <select
+                id="category"
+                value={categoryId}
+                onChange={(e) => setCategoryId(e.target.value)}
+                required
+                className="flex-1 rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors"
+              >
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={() => setIsCategoryModalOpen(true)}
+                className="inline-flex items-center gap-1 rounded-lg border border-border bg-background px-3 py-2.5 text-xs font-medium text-foreground hover:bg-surface transition-colors min-h-11"
+                title="Tambah kategori baru"
+              >
+                <Plus size={14} aria-hidden="true" />
+                <span className="hidden sm:inline">Tambah</span>
+              </button>
+            </div>
           </div>
 
           <div>
@@ -562,6 +588,13 @@ export default function EditProductPage({ params }: Props) {
           </div>
         )}
       </div>
+
+      {/* Add Category Modal */}
+      <AddCategoryModal
+        isOpen={isCategoryModalOpen}
+        onClose={() => setIsCategoryModalOpen(false)}
+        onSuccess={handleCategoryCreated}
+      />
     </div>
   );
 }

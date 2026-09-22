@@ -33,11 +33,17 @@ function LoginForm() {
       });
 
       if (error) {
-        setErrorMessage(
-          error.message === "Invalid login credentials"
-            ? "Email atau kata sandi salah."
-            : error.message
-        );
+        const lowerMsg = error.message.toLowerCase();
+        if (
+          lowerMsg.includes("invalid login credentials") ||
+          lowerMsg.includes("email not confirmed")
+        ) {
+          setErrorMessage("Email atau kata sandi salah. Silakan coba lagi.");
+        } else {
+          setErrorMessage(
+            "Gagal masuk. Periksa koneksi internet dan coba lagi."
+          );
+        }
         setLoading(false);
         return;
       }
@@ -68,10 +74,8 @@ function LoginForm() {
       // 3. Success -> Redirect to /admin
       router.push("/admin");
       router.refresh();
-    } catch (err: unknown) {
-      setErrorMessage(
-        err instanceof Error ? err.message : "Terjadi kesalahan sistem."
-      );
+    } catch {
+      setErrorMessage("Gagal masuk. Periksa koneksi internet dan coba lagi.");
       setLoading(false);
     }
   }

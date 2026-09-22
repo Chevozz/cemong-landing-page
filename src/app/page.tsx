@@ -5,9 +5,10 @@ import Footer from "@/components/layout/Footer";
 import ProductGrid from "@/components/product/ProductGrid";
 import { getAvailableProducts } from "@/lib/supabase/queries";
 import { placeholderProducts } from "@/data/placeholderProducts";
-import { store } from "@/config/store";
+import { getStoreInfo } from "@/lib/supabase/store-queries";
 
 export default async function Home() {
+  const store = await getStoreInfo();
   let products = placeholderProducts.filter((p) => p.is_available);
 
   try {
@@ -50,7 +51,7 @@ export default async function Home() {
                     Lihat Produk
                   </a>
                   <a
-                    href={`https://wa.me/${store.whatsappNumber}?text=${encodeURIComponent("Halo Cem'ong, saya mau pesan camilan.")}`}
+                    href={`https://wa.me/${store.whatsappNumber}?text=${encodeURIComponent(`Halo ${store.name}, saya mau pesan camilan.`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-6 py-3.5 text-base font-semibold text-foreground hover:bg-background transition-colors min-h-11"
@@ -211,7 +212,7 @@ export default async function Home() {
 
               <div className="pt-2">
                 <a
-                  href={`https://wa.me/${store.whatsappNumber}?text=${encodeURIComponent("Halo Cem'ong, saya mau pesan camilan.")}`}
+                  href={`https://wa.me/${store.whatsappNumber}?text=${encodeURIComponent(`Halo ${store.name}, saya mau pesan camilan.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-whatsapp px-6 py-3.5 text-base font-semibold text-white hover:bg-whatsapp/90 transition-all min-h-11 shadow-sm"

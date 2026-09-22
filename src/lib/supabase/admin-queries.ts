@@ -337,6 +337,64 @@ export async function createCategory(name: string, slug: string): Promise<{ data
   return { data, error: null };
 }
 
+export async function updateCategory(
+  id: string,
+  payload: { name?: string; slug?: string }
+): Promise<{ error: string | null }> {
+  const { error } = await supabase
+    .from("product_categories")
+    .update(payload)
+    .eq("id", id);
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { error: null };
+}
+
+export async function deleteCategory(id: string): Promise<{ error: string | null }> {
+  // Check if category has products
+  const { data: products, error: checkError } = await supabase
+    .from("products")
+    .select("id")
+    .eq("category_id", id)
+    .limit(1);
+
+  if (checkError) {
+    return { error: checkError.message };
+  }
+
+  if (products && products.length > 0) {
+    return { error: "Kategori masih digunakan oleh beberapa produk dan tidak dapat dihapus." };
+  }
+
+  // Safe to delete
+  const { error } = await supabase
+    .from("product_categories")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { error: null };
+}
+
+export async function getCategoryWithProductCount(id: string): Promise<{ count: number; error: string | null }> {
+  const { count, error } = await supabase
+    .from("products")
+    .select("*", { count: "exact", head: true })
+    .eq("category_id", id);
+
+  if (error) {
+    return { count: 0, error: error.message };
+  }
+
+  return { count: count ?? 0, error: null };
+}
+
 // ============================================
 // Helpers
 // ============================================

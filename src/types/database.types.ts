@@ -130,6 +130,33 @@ export type Database = {
           }
         ];
       };
+      store_settings: {
+        Row: {
+          id: number;
+          store_name: string;
+          whatsapp_number: string;
+          instagram: string | null;
+          address: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: number;
+          store_name: string;
+          whatsapp_number: string;
+          instagram?: string | null;
+          address: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: number;
+          store_name?: string;
+          whatsapp_number?: string;
+          instagram?: string | null;
+          address?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -161,6 +188,7 @@ export type ProductCategory = Tables<"product_categories">;
 export type ProductRow = Tables<"products">;
 export type ProductImage = Tables<"product_images">;
 export type AdminProfile = Tables<"admin_profiles">;
+export type StoreSettingsRow = Tables<"store_settings">;
 
 export interface ProductWithRelations extends ProductRow {
   category: ProductCategory;

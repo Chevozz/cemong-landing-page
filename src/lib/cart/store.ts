@@ -2,17 +2,20 @@ import type { CartItem } from "@/types/product";
 
 const CART_KEY = "cemong-cart";
 
+// Cached empty array for stable server snapshot reference
+const EMPTY_CART: CartItem[] = [];
+
 // ============================================
 // Cart Storage Operations (localStorage)
 // ============================================
 
 function readCart(): CartItem[] {
-  if (typeof window === "undefined") return [];
+  if (typeof window === "undefined") return EMPTY_CART;
   try {
     const raw = localStorage.getItem(CART_KEY);
-    if (!raw) return [];
+    if (!raw) return EMPTY_CART;
     const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
+    if (!Array.isArray(parsed)) return EMPTY_CART;
     return parsed.filter(
       (item: CartItem) =>
         item.productId &&
@@ -22,7 +25,7 @@ function readCart(): CartItem[] {
         item.quantity > 0
     );
   } catch {
-    return [];
+    return EMPTY_CART;
   }
 }
 
@@ -44,7 +47,7 @@ function getSnapshot(): CartItem[] {
 }
 
 function getServerSnapshot(): CartItem[] {
-  return [];
+  return EMPTY_CART;
 }
 
 function subscribe(listener: () => void): () => void {
@@ -108,7 +111,7 @@ export function updateQuantity(productId: string, quantity: number): void {
 }
 
 export function clearCart(): void {
-  writeCart([]);
+  writeCart(EMPTY_CART);
   notifyListeners();
 }
 

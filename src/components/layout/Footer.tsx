@@ -1,6 +1,10 @@
-import { store } from "@/config/store";
+"use client";
+
+import { useStore } from "./StoreProvider";
 
 export default function Footer() {
+  const store = useStore();
+
   return (
     <footer className="border-t border-border bg-surface text-foreground">
       <div className="mx-auto max-w-300 px-4 py-8 md:px-8">
@@ -26,9 +30,12 @@ export default function Footer() {
                 {store.whatsappDisplay}
               </a>
             </p>
-            <p>
-              <strong className="text-foreground">Instagram:</strong> {store.instagram}
-            </p>
+            {store.instagram && (
+              <p>
+                <strong className="text-foreground">Instagram:</strong>{" "}
+                {store.instagram}
+              </p>
+            )}
             <p>
               <strong className="text-foreground">Alamat:</strong> {store.address}
             </p>

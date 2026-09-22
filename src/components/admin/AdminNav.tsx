@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Package, Settings, ExternalLink, LogOut } from "lucide-react";
+import { LayoutDashboard, Package, Tags, Settings, ExternalLink, LogOut } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 
 export default function AdminNav() {
@@ -18,6 +18,7 @@ export default function AdminNav() {
   const navItems = [
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard, exact: true },
     { label: "Produk", href: "/admin/produk", icon: Package, exact: false },
+    { label: "Kategori", href: "/admin/kategori", icon: Tags, exact: false },
     { label: "Pengaturan", href: "/admin/pengaturan", icon: Settings, exact: true },
   ];
 

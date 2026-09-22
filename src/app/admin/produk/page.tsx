@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Plus, Search, Edit2, Trash2, CheckCircle2, XCircle } from "lucide-react";
 import { getAllProductsAdmin, deleteProduct, updateProduct } from "@/lib/supabase/admin-queries";
 import { formatRupiah } from "@/lib/formatters/currency";
+import { mapAdminError } from "@/lib/utils/error-messages";
 import type { ProductWithRelations } from "@/types/database";
 
 export default function AdminProductsPage() {
@@ -48,7 +49,8 @@ export default function AdminProductsPage() {
     setDeletingId(null);
 
     if (error) {
-      alert(`Gagal menghapus produk: ${error}`);
+      const mapped = mapAdminError(error, "product");
+      alert(`${mapped.title}\n\n${mapped.message}`);
       return;
     }
 
@@ -62,7 +64,8 @@ export default function AdminProductsPage() {
     });
 
     if (error) {
-      alert(`Gagal mengubah status: ${error}`);
+      const mapped = mapAdminError(error, "product");
+      alert(`${mapped.title}\n\n${mapped.message}`);
       return;
     }
 

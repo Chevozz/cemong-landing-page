@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Upload, X, AlertCircle } from "lucide-react";
+import { ArrowLeft, Upload, X, AlertCircle, Plus } from "lucide-react";
 import {
   getCategoriesAdmin,
   createProduct,
   uploadProductImage,
 } from "@/lib/supabase/admin-queries";
+import { mapAdminError } from "@/lib/utils/error-messages";
+import AddCategoryModal from "@/components/admin/AddCategoryModal";
 import type { ProductCategory } from "@/types/database";
 
 export default function AddProductPage() {
@@ -31,6 +33,14 @@ export default function AddProductPage() {
   // Image Upload State
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  // Category Modal State
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+
+  function handleCategoryCreated(category: ProductCategory) {
+    setCategories((prev) => [...prev, category]);
+    setCategoryId(category.id);
+  }
 
   useEffect(() => {
     async function init() {
@@ -119,7 +129,8 @@ export default function AddProductPage() {
       });
 
       if (createError || !newProduct) {
-        setErrorMessage(`Gagal menyimpan produk: ${createError}`);
+        const mapped = mapAdminError(createError, "product");
+        setErrorMessage(`${mapped.title}. ${mapped.message}`);
         setLoading(false);
         return;
       }
@@ -132,7 +143,8 @@ export default function AddProductPage() {
           true
         );
         if (uploadErr) {
-          alert(`Produk tersimpan, tetapi gagal mengunggah gambar: ${uploadErr}`);
+          const mapped = mapAdminError(uploadErr, "product-image");
+          alert(`Produk tersimpan, tetapi ${mapped.title.toLowerCase()}. ${mapped.message}`);
         }
       }
 
@@ -140,9 +152,8 @@ export default function AddProductPage() {
       router.push("/admin/produk");
       router.refresh();
     } catch (err: unknown) {
-      setErrorMessage(
-        err instanceof Error ? err.message : "Terjadi kesalahan saat menyimpan."
-      );
+      const mapped = mapAdminError(err, "product");
+      setErrorMessage(`${mapped.title}. ${mapped.message}`);
       setLoading(false);
     }
   }
@@ -226,19 +237,30 @@ export default function AddProductPage() {
             >
               Kategori <span className="text-error">*</span>
             </label>
-            <select
-              id="category"
-              value={categoryId}
-              onChange={(e) => setCategoryId(e.target.value)}
-              required
-              className="w-full rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors"
-            >
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
+            <div className="flex items-center gap-2">
+              <select
+                id="category"
+                value={categoryId}
+                onChange={(e) => setCategoryId(e.target.value)}
+                required
+                className="flex-1 rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors"
+              >
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={() => setIsCategoryModalOpen(true)}
+                className="inline-flex items-center gap-1 rounded-lg border border-border bg-background px-3 py-2.5 text-xs font-medium text-foreground hover:bg-surface transition-colors min-h-11"
+                title="Tambah kategori baru"
+              >
+                <Plus size={14} aria-hidden="true" />
+                <span className="hidden sm:inline">Tambah</span>
+              </button>
+            </div>
           </div>
 
           <div>
@@ -388,6 +410,13 @@ export default function AddProductPage() {
           </button>
         </div>
       </form>
+
+      {/* Add Category Modal */}
+      <AddCategoryModal
+        isOpen={isCategoryModalOpen}
+        onClose={() => setIsCategoryModalOpen(false)}
+        onSuccess={handleCategoryCreated}
+      />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
+import { StoreProvider } from "@/components/layout/StoreProvider";
+import { getStoreInfo } from "@/lib/supabase/store-queries";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -59,11 +61,13 @@ export const viewport: Viewport = {
   themeColor: "#6A4C93",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const store = await getStoreInfo();
+
   return (
     <html lang="id" className={`${plusJakarta.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-screen flex flex-col bg-background text-foreground">
-        {children}
+        <StoreProvider store={store}>{children}</StoreProvider>
       </body>
     </html>
   );

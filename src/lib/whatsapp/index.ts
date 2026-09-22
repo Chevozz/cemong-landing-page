@@ -1,16 +1,24 @@
-import { store } from "@/config/store";
+export {
+  normalizeWhatsAppNumber,
+  isValidWhatsAppNumber,
+} from "./normalize";
+
+import { normalizeWhatsAppNumber } from "./normalize";
 
 export function buildWhatsAppMessage(order: {
+  storeName: string;
   items: { name: string; price: number; quantity: number }[];
   total: number;
   name: string;
   address: string;
   note?: string;
 }): string {
-  const lines = ["Halo Cem'ong, saya ingin memesan:"];
+  const lines = [`Halo ${order.storeName}, saya ingin memesan:`];
 
   order.items.forEach((item, idx) => {
-    lines.push(`${idx + 1}. ${item.name} x${item.quantity} — Rp ${item.price.toLocaleString("id-ID")}`);
+    lines.push(
+      `${idx + 1}. ${item.name} x${item.quantity} — Rp ${item.price.toLocaleString("id-ID")}`
+    );
   });
 
   lines.push("");
@@ -26,6 +34,6 @@ export function buildWhatsAppMessage(order: {
   return lines.join("\n");
 }
 
-export function buildWhatsAppUrl(message: string): string {
-  return `https://wa.me/${store.whatsappNumber}?text=${encodeURIComponent(message)}`;
+export function buildWhatsAppUrl(number: string, message: string): string {
+  return `https://wa.me/${normalizeWhatsAppNumber(number)}?text=${encodeURIComponent(message)}`;
 }
