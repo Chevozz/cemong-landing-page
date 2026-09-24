@@ -19,16 +19,65 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const product = await resolveProduct(slug);
 
-  if (!product) return { title: "Produk tidak ditemukan" };
+  if (!product) return { title: "Produk tidak ditemukan", robots: { index: false } };
+
+  const description =
+    product.description ??
+    `${product.name} dari Cem'ong. ${product.weight_grams} gram, pesan langsung via WhatsApp.`;
+  const primaryImage =
+    product.images?.find((img) => img.is_primary) ?? product.images?.[0];
 
   return {
-    title: `${product.name} — Cem'ong`,
-    description: product.description ?? `${product.name} dari Cem'ong`,
+    title: product.name,
+    description,
+    alternates: { canonical: `/produk/${product.slug}` },
     openGraph: {
       title: `${product.name} — Cem'ong`,
-      description: product.description ?? undefined,
+      description,
+      type: "website",
+      images: primaryImage
+        ? [{ url: primaryImage.image_url, alt: product.name }]
+        : [{ url: "/images/hero-camilan.svg", alt: product.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} — Cem'ong`,
+      description,
+      images: primaryImage ? [primaryImage.image_url] : ["/images/hero-camilan.svg"],
     },
   };
+}
+
+function ProductJsonLd({
+  product,
+  imageUrl,
+}: {
+  product: ProductWithRelations;
+  imageUrl: string;
+}) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description ?? `${product.name} dari Cem'ong.`,
+    image: [imageUrl],
+    category: product.category?.name,
+    offers: {
+      "@type": "Offer",
+      price: product.price,
+      priceCurrency: "IDR",
+      availability: product.is_available
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
 }
 
 async function resolveProduct(slug: string): Promise<ProductWithRelations | null> {
@@ -55,6 +104,7 @@ export default async function ProductDetailPage({ params }: Props) {
   return (
     <>
       <Navbar />
+      <ProductJsonLd product={product} imageUrl={mainImageUrl} />
 
       <main className="flex-1">
         <div className="mx-auto max-w-300 px-4 py-8 md:px-8 md:py-12">

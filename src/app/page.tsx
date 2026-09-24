@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { MessageCircle } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ProductGrid from "@/components/product/ProductGrid";
@@ -217,8 +216,9 @@ export default async function Home() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-whatsapp px-6 py-3.5 text-base font-semibold text-white hover:bg-whatsapp/90 transition-all min-h-11 shadow-sm"
                 >
-                  <MessageCircle size={19} aria-hidden="true" />
-                  <span>Pesan via WhatsApp ({store.whatsappDisplay})</span>
+                  {/* eslint-disable-next-line @next/next/no-img-element -- trusted local static SVG asset, intentionally not next/image */}
+                  <img src="/whatsapp.svg" alt="" width={19} height={19} className="invert" aria-hidden="true" />
+                  <span>Pesan via WhatsApp</span>
                 </a>
               </div>
             </div>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, MessageCircle } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { formatRupiah } from "@/lib/formatters/currency";
@@ -236,7 +236,8 @@ export default function CheckoutPage() {
                 disabled={checking}
                 className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-whatsapp px-6 py-3 text-base font-medium text-white hover:bg-whatsapp/90 transition-colors min-h-11 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <MessageCircle size={18} aria-hidden="true" />
+                {/* eslint-disable-next-line @next/next/no-img-element -- trusted local static SVG asset, intentionally not next/image */}
+                <img src="/whatsapp.svg" alt="" width={18} height={18} className="invert" aria-hidden="true" />
                 {checking ? "Memeriksa ketersediaan..." : "Kirim Pesanan ke WhatsApp"}
               </button>
             </form>

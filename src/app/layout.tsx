@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import { StoreProvider } from "@/components/layout/StoreProvider";
 import { getStoreInfo } from "@/lib/supabase/store-queries";
+import { siteUrl } from "@/config/site";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -31,19 +32,24 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://cemong.vercel.app"),
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Cem'ong — Keripik Talas & Rengginang",
     description: "Keripik ubi talas dan rengginang goreng rumahan. Renyah, gurih, pesan via WhatsApp.",
-    url: "https://cemong.vercel.app",
+    url: siteUrl,
     siteName: "Cem'ong",
     locale: "id_ID",
     type: "website",
+    images: [{ url: "/images/hero-camilan.svg", width: 1200, height: 900, alt: "Keripik talas dan rengginang Cem'ong" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Cem'ong — Keripik Talas & Rengginang",
     description: "Keripik ubi talas dan rengginang goreng rumahan.",
+    images: ["/images/hero-camilan.svg"],
   },
   robots: {
     index: true,

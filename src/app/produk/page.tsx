@@ -3,10 +3,13 @@ import Footer from "@/components/layout/Footer";
 import ProductGrid from "@/components/product/ProductGrid";
 import { getProducts } from "@/lib/supabase/queries";
 import { placeholderProducts } from "@/data/placeholderProducts";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Produk — Cem'ong",
-  description: "Lihat semua produk keripik talas dan rengginang dari Cem'ong.",
+export const metadata: Metadata = {
+  title: "Produk — Keripik Talas & Rengginang",
+  description:
+    "Semua camilan Cem'ong: keripik ubi talas gurih dan pedas, serta rengginang renyah. Pilih, masukkan keranjang, dan pesan lewat WhatsApp.",
+  alternates: { canonical: "/produk" },
 };
 
 export default async function ProdukPage() {
