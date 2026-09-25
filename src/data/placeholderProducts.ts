@@ -10,7 +10,7 @@ export const placeholderProducts: ProductWithRelations[] = [
     slug: "keripik-talas-gurih",
     description: "Keripik ubi talas yang diiris tipis dan digoreng renyah dengan rasa gurih yang pas untuk teman ngemil.",
     price: 25000,
-    weight_grams: 100,
+    pcs: 10,
     is_available: true,
     images: [
       {
@@ -33,7 +33,7 @@ export const placeholderProducts: ProductWithRelations[] = [
     slug: "keripik-talas-pedas",
     description: "Keripik ubi talas renyah dengan rasa pedas gurih yang pas.",
     price: 27000,
-    weight_grams: 100,
+    pcs: 10,
     is_available: true,
     images: [
       {
@@ -56,7 +56,7 @@ export const placeholderProducts: ProductWithRelations[] = [
     slug: "rengginang-original",
     description: "Rengginang ketan goreng dengan tekstur renyah dan rasa gurih alami.",
     price: 22000,
-    weight_grams: 80,
+    pcs: 10,
     is_available: true,
     images: [
       {

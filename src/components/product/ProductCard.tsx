@@ -11,7 +11,7 @@ export interface ProductCardProps {
     name: string;
     slug: string;
     price: number;
-    weightGrams: number;
+    pcs: number;
     imageUrl: string;
     isAvailable: boolean;
   };
@@ -39,7 +39,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           slug: product.slug,
           name: product.name,
           price: product.price,
-          weightGrams: product.weightGrams,
+          pcs: product.pcs,
           imageUrl: product.imageUrl,
           quantity: 1,
         });
@@ -87,7 +87,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               {product.name}
             </h3>
           </Link>
-          <p className="mt-1.5 text-sm text-muted">{product.weightGrams} gram</p>
+          <p className="mt-1.5 text-sm text-muted">Isi {product.pcs} pcs</p>
         </div>
 
         {/* Price & CTA row */}
@@ -95,7 +95,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div>
             <span className="block text-[11px] font-medium text-muted uppercase tracking-wider">Harga</span>
             <span className="font-sans text-xl sm:text-2xl font-extrabold text-foreground">
-              {formatRupiah(product.price)}
+              {formatRupiah(product.price)}<span className="text-sm font-medium text-muted">/pcs</span>
             </span>
           </div>
 

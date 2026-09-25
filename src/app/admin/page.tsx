@@ -111,7 +111,7 @@ export default async function AdminDashboardPage() {
                   <th className="py-3 px-5">Nama Produk</th>
                   <th className="py-3 px-5">Kategori</th>
                   <th className="py-3 px-5">Harga</th>
-                  <th className="py-3 px-5">Berat</th>
+                  <th className="py-3 px-5">Pcs</th>
                   <th className="py-3 px-5">Status</th>
                   <th className="py-3 px-5 text-right">Aksi</th>
                 </tr>
@@ -129,7 +129,7 @@ export default async function AdminDashboardPage() {
                       {formatRupiah(product.price)}
                     </td>
                     <td className="py-3.5 px-5 text-muted">
-                      {product.weight_grams} g
+                      {product.pcs} pcs
                     </td>
                     <td className="py-3.5 px-5">
                       {product.is_available ? (

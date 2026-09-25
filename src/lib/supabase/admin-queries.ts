@@ -112,7 +112,7 @@ export async function createProduct(payload: {
   slug: string;
   description: string | null;
   price: number;
-  weight_grams: number;
+  pcs: number;
   is_available: boolean;
 }): Promise<{ data: ProductRow | null; error: string | null }> {
   const { data, error } = await supabase
@@ -136,7 +136,7 @@ export async function updateProduct(
     slug?: string;
     description?: string | null;
     price?: number;
-    weight_grams?: number;
+    pcs?: number;
     is_available?: boolean;
   }
 ): Promise<{ error: string | null }> {

@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const description =
     product.description ??
-    `${product.name} dari Cem'ong. ${product.weight_grams} gram, pesan langsung via WhatsApp.`;
+    `${product.name} dari Cem'ong. Isi ${product.pcs} pcs, pesan langsung via WhatsApp.`;
   const primaryImage =
     product.images?.find((img) => img.is_primary) ?? product.images?.[0];
 
@@ -137,8 +137,9 @@ export default async function ProductDetailPage({ params }: Props) {
               <div className="mt-3 flex items-baseline gap-3">
                 <p className="text-2xl font-bold text-primary">
                   {formatRupiah(product.price)}
+                  <span className="text-sm font-medium text-muted">/pcs</span>
                 </p>
-                <p className="text-sm text-muted">{product.weight_grams} g</p>
+                <p className="text-sm text-muted">Isi {product.pcs} pcs</p>
               </div>
 
               {product.description && (
@@ -166,7 +167,7 @@ export default async function ProductDetailPage({ params }: Props) {
                     slug: product.slug,
                     name: product.name,
                     price: product.price,
-                    weightGrams: product.weight_grams,
+                    pcs: product.pcs,
                     isAvailable: product.is_available,
                   }}
                   imageUrl={mainImageUrl}

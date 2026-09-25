@@ -94,7 +94,7 @@ export type Database = {
           price: number;
           slug: string;
           updated_at: string;
-          weight_grams: number;
+          pcs: number;
         };
         Insert: {
           category_id: string;
@@ -106,7 +106,7 @@ export type Database = {
           price: number;
           slug: string;
           updated_at?: string;
-          weight_grams: number;
+          pcs: number;
         };
         Update: {
           category_id?: string;
@@ -118,7 +118,7 @@ export type Database = {
           price?: number;
           slug?: string;
           updated_at?: string;
-          weight_grams?: number;
+          pcs?: number;
         };
         Relationships: [
           {

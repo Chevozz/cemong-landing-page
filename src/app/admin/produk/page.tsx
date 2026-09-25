@@ -91,7 +91,7 @@ export default function AdminProductsPage() {
             Kelola Produk
           </h1>
           <p className="text-sm text-muted">
-            Daftar seluruh camilan, harga, berat, foto, dan ketersediaan stok
+            Daftar seluruh camilan, harga, pcs, foto, dan ketersediaan stok
           </p>
         </div>
 
@@ -148,7 +148,7 @@ export default function AdminProductsPage() {
                   <th className="py-3 px-4 sm:px-6">Produk</th>
                   <th className="py-3 px-4">Kategori</th>
                   <th className="py-3 px-4">Harga</th>
-                  <th className="py-3 px-4">Berat</th>
+                  <th className="py-3 px-4">Pcs</th>
                   <th className="py-3 px-4">Status</th>
                   <th className="py-3 px-4 sm:px-6 text-right">Aksi</th>
                 </tr>
@@ -199,9 +199,9 @@ export default function AdminProductsPage() {
                         {formatRupiah(product.price)}
                       </td>
 
-                      {/* Weight */}
+                      {/* Pcs */}
                       <td className="py-3 px-4 text-muted">
-                        {product.weight_grams} g
+                        {product.pcs} pcs
                       </td>
 
                       {/* Status Toggle */}

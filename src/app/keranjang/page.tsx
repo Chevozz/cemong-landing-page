@@ -65,7 +65,7 @@ export default function KeranjangPage() {
                         <h3 className="text-sm font-semibold text-foreground truncate">
                           {item.name}
                         </h3>
-                        <p className="text-sm text-muted">{formatRupiah(item.price)}</p>
+                        <p className="text-sm text-muted">{formatRupiah(item.price)}<span className="text-xs">/pcs</span></p>
                       </div>
 
                       <div className="flex items-center justify-between mt-2">

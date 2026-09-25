@@ -9,7 +9,7 @@ interface Props {
     slug: string;
     name: string;
     price: number;
-    weightGrams: number;
+    pcs: number;
     isAvailable: boolean;
   };
   imageUrl: string;
@@ -46,7 +46,7 @@ export default function AddToCartButton({ product, imageUrl }: Props) {
           slug: product.slug,
           name: product.name,
           price: product.price,
-          weightGrams: product.weightGrams,
+          pcs: product.pcs,
           imageUrl,
           quantity,
         });

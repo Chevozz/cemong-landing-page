@@ -26,7 +26,7 @@ export default function AddProductPage() {
   const [slug, setSlug] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [price, setPrice] = useState<number | "">(25000);
-  const [weightGrams, setWeightGrams] = useState<number | "">(100);
+  const [pcs, setPcs] = useState<number | "">(10);
   const [description, setDescription] = useState("");
   const [isAvailable, setIsAvailable] = useState(true);
 
@@ -109,8 +109,8 @@ export default function AddProductPage() {
       setErrorMessage("Harga harus berupa angka positif.");
       return;
     }
-    if (typeof weightGrams !== "number" || weightGrams <= 0) {
-      setErrorMessage("Berat harus lebih dari 0 gram.");
+    if (typeof pcs !== "number" || pcs <= 0) {
+      setErrorMessage("Jumlah pcs harus lebih dari 0.");
       return;
     }
 
@@ -124,7 +124,7 @@ export default function AddProductPage() {
         slug: slug.trim(),
         description: description.trim() || null,
         price: Math.round(price),
-        weight_grams: Math.round(weightGrams),
+        pcs: Math.round(pcs),
         is_available: isAvailable,
       });
 
@@ -282,7 +282,7 @@ export default function AddProductPage() {
           </div>
         </div>
 
-        {/* Price & Weight */}
+        {/* Price & Pcs */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label
@@ -308,23 +308,23 @@ export default function AddProductPage() {
 
           <div>
             <label
-              htmlFor="weight"
+              htmlFor="pcs"
               className="block text-xs font-semibold text-foreground mb-1.5 uppercase tracking-wide"
             >
-              Berat Bersih (gram) <span className="text-error">*</span>
+              Isi (pcs) <span className="text-error">*</span>
             </label>
             <input
-              id="weight"
+              id="pcs"
               type="number"
               min="1"
               required
-              value={weightGrams}
+              value={pcs}
               onChange={(e) =>
-                setWeightGrams(
+                setPcs(
                   e.target.value === "" ? "" : Number(e.target.value)
                 )
               }
-              placeholder="100"
+              placeholder="10"
               className="w-full rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors"
             />
           </div>

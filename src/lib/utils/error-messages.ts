@@ -276,7 +276,7 @@ function mapValidationError(context: AdminErrorContext): UserError {
       return {
         title: "Data tidak lengkap",
         message:
-          "Ada field wajib yang belum diisi. Periksa kembali nama, slug, kategori, harga, dan berat produk.",
+          "Ada field wajib yang belum diisi. Periksa kembali nama, slug, kategori, harga, dan jumlah pcs produk.",
       };
     case "store-settings":
       return {

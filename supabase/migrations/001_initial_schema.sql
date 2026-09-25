@@ -24,7 +24,7 @@ create table if not exists public.products (
   slug varchar(180) not null unique,
   description text,
   price integer not null check (price >= 0),
-  weight_grams integer not null check (weight_grams > 0),
+  pcs integer not null check (pcs > 0),
   is_available boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -116,12 +116,12 @@ insert into public.product_categories (name, slug) values
 on conflict (slug) do nothing;
 
 -- Insert sample products
-insert into public.products (category_id, name, slug, description, price, weight_grams, is_available)
+insert into public.products (category_id, name, slug, description, price, pcs, is_available)
 values
-  ((select id from public.product_categories where slug = 'keripik'), 'Keripik Talas Gurih', 'keripik-talas-gurih', 'Keripik ubi talas yang renyah dengan bumbu gurih khas.', 25000, 100, true),
-  ((select id from public.product_categories where slug = 'keripik'), 'Keripik Talas Pedas', 'keripik-talas-pedas', 'Keripik ubi talas dengan rasa pedas yang pas.', 27000, 100, true),
-  ((select id from public.product_categories where slug = 'rengginang'), 'Rengginang Original', 'rengginang-original', 'Rengginang tradisional dengan tekstur renyah dan rasa gurih.', 22000, 80, true),
-  ((select id from public.product_categories where slug = 'rengginang'), 'Rengginang Jagung', 'rengginang-jagung', 'Rengginang campuran jagung manis dengan rasa khas.', 24000, 80, false)
+  ((select id from public.product_categories where slug = 'keripik'), 'Keripik Talas Gurih', 'keripik-talas-gurih', 'Keripik ubi talas yang renyah dengan bumbu gurih khas.', 25000, 10, true),
+  ((select id from public.product_categories where slug = 'keripik'), 'Keripik Talas Pedas', 'keripik-talas-pedas', 'Keripik ubi talas dengan rasa pedas yang pas.', 27000, 10, true),
+  ((select id from public.product_categories where slug = 'rengginang'), 'Rengginang Original', 'rengginang-original', 'Rengginang tradisional dengan tekstur renyah dan rasa gurih.', 22000, 10, true),
+  ((select id from public.product_categories where slug = 'rengginang'), 'Rengginang Jagung', 'rengginang-jagung', 'Rengginang campuran jagung manis dengan rasa khas.', 24000, 10, false)
 on conflict (slug) do nothing;
 
 -- Insert placeholder images for products

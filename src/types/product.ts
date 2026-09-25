@@ -15,7 +15,7 @@ export interface CartItem {
   slug: string;
   name: string;
   price: Price;
-  weightGrams: number;
+  pcs: number;
   imageUrl?: string;
   quantity: number;
 }

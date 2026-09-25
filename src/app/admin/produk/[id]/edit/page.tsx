@@ -49,7 +49,7 @@ export default function EditProductPage({ params }: Props) {
   const [slug, setSlug] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [price, setPrice] = useState<number | "">("");
-  const [weightGrams, setWeightGrams] = useState<number | "">("");
+  const [pcs, setPcs] = useState<number | "">("");
   const [description, setDescription] = useState("");
   const [isAvailable, setIsAvailable] = useState(true);
 
@@ -88,7 +88,7 @@ export default function EditProductPage({ params }: Props) {
           setSlug(p.slug);
           setCategoryId(p.category_id);
           setPrice(p.price);
-          setWeightGrams(p.weight_grams);
+          setPcs(p.pcs);
           setDescription(p.description || "");
           setIsAvailable(p.is_available);
           setImages(p.images || []);
@@ -129,10 +129,10 @@ export default function EditProductPage({ params }: Props) {
       return;
     }
 
-    if (typeof weightGrams !== "number" || weightGrams <= 0) {
+    if (typeof pcs !== "number" || pcs <= 0) {
       setStatusMessage({
         type: "error",
-        text: "Berat harus lebih dari 0 gram.",
+        text: "Jumlah pcs harus lebih dari 0.",
       });
       return;
     }
@@ -144,7 +144,7 @@ export default function EditProductPage({ params }: Props) {
       slug: slug.trim(),
       category_id: categoryId,
       price: Math.round(price),
-      weight_grams: Math.round(weightGrams),
+      pcs: Math.round(pcs),
       description: description.trim() || null,
       is_available: isAvailable,
     });
@@ -405,7 +405,7 @@ export default function EditProductPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Price & Weight */}
+        {/* Price & Pcs */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label
@@ -430,19 +430,19 @@ export default function EditProductPage({ params }: Props) {
 
           <div>
             <label
-              htmlFor="weight"
+              htmlFor="pcs"
               className="block text-xs font-semibold text-foreground mb-1.5 uppercase tracking-wide"
             >
-              Berat Bersih (gram) <span className="text-error">*</span>
+              Isi (pcs) <span className="text-error">*</span>
             </label>
             <input
-              id="weight"
+              id="pcs"
               type="number"
               min="1"
               required
-              value={weightGrams}
+              value={pcs}
               onChange={(e) =>
-                setWeightGrams(
+                setPcs(
                   e.target.value === "" ? "" : Number(e.target.value)
                 )
               }

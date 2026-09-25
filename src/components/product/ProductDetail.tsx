@@ -7,7 +7,7 @@ export interface ProductDetailProps {
     name: string;
     slug: string;
     price: number;
-    weightGrams: number;
+    pcs: number;
     description: string | null;
     isAvailable: boolean;
     imageUrl: string;
@@ -34,8 +34,11 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         <h1 className="text-3xl font-bold text-foreground md:text-4xl">{product.name}</h1>
 
         <div className="mt-3 flex items-center gap-3">
-          <p className="text-2xl font-semibold text-primary">{formatRupiah(product.price)}</p>
-          <p className="text-sm text-muted">{product.weightGrams} g</p>
+          <p className="text-2xl font-semibold text-primary">
+            {formatRupiah(product.price)}
+            <span className="text-sm font-medium text-muted">/pcs</span>
+          </p>
+          <p className="text-sm text-muted">Isi {product.pcs} pcs</p>
         </div>
 
         {product.description && (

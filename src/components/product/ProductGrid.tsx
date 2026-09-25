@@ -27,7 +27,7 @@ export default function ProductGrid({ products, emptyMessage = "Belum ada produk
               name: product.name,
               slug: product.slug,
               price: product.price,
-              weightGrams: product.weight_grams,
+              pcs: product.pcs,
               imageUrl: primaryImage?.image_url ?? "/placeholder-photo.svg",
               isAvailable: product.is_available,
             }}
